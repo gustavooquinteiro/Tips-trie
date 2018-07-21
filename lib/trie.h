@@ -13,8 +13,11 @@
 
 typedef struct TrieNode TrieNode;
 
-int search(struct TrieNode *root, const char *key);
+int search(TrieNode *root, const char *key);
 void insert(TrieNode *root, const char *key);
+int suggest(TrieNode* root, const char * key);
+void removeTrie(TrieNode* root);
+void removeNode(TrieNode * node);
 TrieNode *getNode();
 
 #endif
