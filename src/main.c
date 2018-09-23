@@ -11,7 +11,17 @@ int main(){
 				searchTrie(root);
 				break;
 			case SUGGEST:
+                suggestTrie(root);
 				break;
+            case HELP:
+                printf("----------------Tips-Trie Help------------------------\n");
+                printf("%c word                - insert word in trie     \n", INSERT);
+                printf("%c word                - search in trie for the word  \n", SEARCH);
+                printf("%c prefix              - search in trie for word(s) with the prefix   \n", SUGGEST);
+                printf("%c                     - display this help menu        \n", HELP);
+                printf("%c                     - exit the program              \n\n", END);
+                printf("----------------------------------------------------\n");
+                break;
 		}
 	}
     removeTrie(root);
@@ -31,6 +41,14 @@ void searchTrie(TrieNode * trie){
 	printf("%s %s\n",search(trie,word)? "Found": "Not Found", word); 
     removeWord(word);
 }
+
+void suggestTrie(TrieNode * trie){
+	char * word = malloc(26 * sizeof(char));
+	scanf(" %[^\n]s", word);
+	printSuggestion(trie, word);
+    removeWord(word);
+}
+
 
 void removeWord(char * word){
     free(word);
