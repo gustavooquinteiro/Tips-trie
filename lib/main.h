@@ -1,4 +1,5 @@
 #include "trie.h"
+#include "filemanager.h"
 #include <stdio.h>
 #include <stdlib.h>
 

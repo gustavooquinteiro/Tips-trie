@@ -31,8 +31,8 @@ OPT_FLAGS = -Ofast \
 
 # Comando de construção de diretório
 MKDIR = mkdir -p
-						
-# Comando de limpeza de alvos 
+
+# Comando de limpeza de alvos
 RM = rm -rf
 
 GREEN=\033[0;32m
@@ -57,10 +57,10 @@ $(PROJ_NAME): $(OBJ)
 objFolder:
 	@ $(MKDIR) obj
 	@ echo -e -n " [${GREEN} OK ${NC}]"
-	@ echo ' Criado diretório para objetos' 
+	@ echo ' Criado diretório para objetos'
 
 # Regra de limpeza de objetos e executável
 clean:
-	@ $(RM) obj $(PROJ_NAME) *~
+	@ $(RM) obj $(PROJ_NAME) *~ vgcore.**
 	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ echo ' Workspace limpo'
