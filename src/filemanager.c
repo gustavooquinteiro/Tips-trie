@@ -2,34 +2,25 @@
 
 FILE * open(char *mode){
     FILE * suggestionfile = fopen(SUGGEST_FILE, mode);
-    if (!ferror(suggestionfile))
-      return suggestionfile;
-    exit(EXIT_FAILURE);
+    if (!suggestionfile){            
+        exit(EXIT_FAILURE);
+    }
+    return suggestionfile;
 }
 
 void write(char * text){
-  static int append = FALSE;
-  FILE * file;
-  if (append){
-    file = open(APPEND_MODE);
-  } else{
-    file = open(WRITE_MODE);
-    append = TRUE;
-  }
-  fprintf(file, "\t%s\n", text);
-  close(file);
+    FILE * file = open(APPEND_MODE);
+    fprintf(file, "\t%s\n", text);  
+    close(file);
 }
 
-void read(){
-  char buffer;
-  FILE  * file = open(READ_MODE);
-  while (!feof(file)) {
-    fscanf(file, "%c", &buffer);
-    printf("%c", buffer);
-
-  }
-  close(file);
-  delete();
+char * read(){
+    char * buffer = (char *)malloc(MAX_SIZE* sizeof(char)); 
+    FILE  * file = open(READ_MODE);
+    int len = fread(buffer, sizeof(char), MAX_SIZE, file);
+    close(file);
+    buffer[len] = '\0';
+    return buffer;
 }
 
 int delete(){
@@ -43,11 +34,4 @@ void close (FILE * file){
   fclose(file);
 }
 
-char *append(char *orig, char c){
-    size_t sz = strlen(orig);
-    char *str = malloc(sz + 2);
-    strcpy(str, orig);
-    str[sz] = c;
-    str[sz + 1] = '\0';
-    return str;
-}
+

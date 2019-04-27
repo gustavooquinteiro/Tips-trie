@@ -18,17 +18,19 @@
 
 typedef struct TrieNode TrieNode;
 
-int search(TrieNode *root, const char *key);
+TrieNode *getNode();
+
 void insert(TrieNode *root, const char *key);
-int suggest(TrieNode* root, char * key);
 void removeTrie(TrieNode* root);
 void removeNode(TrieNode * node);
-TrieNode *getNode();
 void suggestPartialMatch(TrieNode * root, char * key);
+int suggest(TrieNode* root, char * key);
+int search(TrieNode *root, const char *key);
+
 int isFullWord(TrieNode* node);
 int hasChild(TrieNode * node, int child);
 int isEndOfWord(TrieNode * node);
 int isLastNode(TrieNode * root);
 
-
+char *append(char *orig, char c);
 #endif

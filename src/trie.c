@@ -55,17 +55,30 @@ int search(TrieNode *root, const char *key){
     return (pCrawl && isEndOfWord(pCrawl));
 }
 
+char *append(char *orig, char c){
+    size_t sz = strlen(orig);
+    char *str = malloc(sz + 2);
+    strcpy(str, orig);
+    str[sz] = c;
+    str[sz + 1] = '\0';
+    return str;
+}
+
 void suggestPartialMatch(TrieNode *root, char* key){
-    if(isEndOfWord(root)){
-			write(key);
-			return;
+    if(isEndOfWord(root)){        
+        write(key);
+        return;
     }
 
+    if (isLastNode(root)){
+        return;
+    }
+    
     for (register int i =0; i< ALPHABET_SIZE; i++){
         if (hasChild(root, i)){
             char * search = key;
             search = append(key, i+'a');
-            suggest(root->children[i], search);
+            suggestPartialMatch(root->children[i], search);
             free(search);
             search = NULL;
         }
@@ -86,11 +99,13 @@ int suggest(TrieNode * root, char* query){
     }
 
     if(isFullWord(pCrawl)){
-			return MATCH;
-		}else{
-			suggestPartialMatch(pCrawl, query);
-			return PARTIAL_MATCH;
-		}
+        return MATCH;
+    }else{
+        
+        suggestPartialMatch(pCrawl, query);
+        
+        return PARTIAL_MATCH;
+    }
 
 }
 
@@ -118,15 +133,11 @@ void removeNode(TrieNode * node){
 }
 
 int isFullWord(TrieNode* node){
-	if (isEndOfWord(node) && isLastNode(node))
-		return TRUE;
-	return FALSE;
+    return (isEndOfWord(node) && isLastNode(node))? TRUE: FALSE;
 }
 
 int isEndOfWord(TrieNode * node){
-	if(node->isEndOfWord)
-		return TRUE;
-	return FALSE;
+    return (node->isEndOfWord)? TRUE: FALSE;
 }
 
 int isLastNode(TrieNode * root){
@@ -138,7 +149,5 @@ int isLastNode(TrieNode * root){
 }
 
 int hasChild(TrieNode * node, int child){
-	if (node->children[child])
-		return TRUE;
-	return FALSE;
+    return (node->children[child])? TRUE: FALSE;
 }

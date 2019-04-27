@@ -11,7 +11,7 @@ int main(){
 				searchTrie(root);
 				break;
 			case SUGGEST:
-        suggestTrie(root);
+                suggestTrie(root);
 				break;
       case HELP:
         printf("----------------Tips-Trie Help------------------------\n");
@@ -24,15 +24,15 @@ int main(){
         break;
 		}
 	}
-  removeTrie(root);
+    removeTrie(root);
 	exit(EXIT_SUCCESS);
 }
 
 void insertTrie(TrieNode * trie){
-	char * word = malloc(26 * sizeof(char));
-	scanf(" %[^\n]s", word);
-	insert(trie, word);
-  removeWord(word);
+    char * word = malloc(26 * sizeof(char));
+    scanf(" %[^\n]s", word);
+    insert(trie, word);
+    removeWord(word);
 }
 
 void searchTrie(TrieNode * trie){
@@ -51,7 +51,10 @@ void suggestTrie(TrieNode * trie){
 			break;
 		case PARTIAL_MATCH:
 			printf("Found some words with \"%s\" as prefix\n", word);
-			read();
+            char * buffer = read();
+            printf("%s", buffer);
+            removeWord(buffer);
+            delete();
 			break;
 		case MATCH:
 			printf("%s is a whole word.\nTry less letters for more results, if you want\n", word);
