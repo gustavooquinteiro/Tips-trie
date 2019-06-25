@@ -40,11 +40,10 @@ void insert(TrieNode *root, const char *key){
 int search(TrieNode *root, const char *key){
     register int level;
     int length = strlen(key);
-    int index;
     TrieNode *pCrawl = root;
 
     for (level = 0; level < length; level++){
-        index = CHAR_TO_INDEX(key[level]);
+        int index = CHAR_TO_INDEX(key[level]);
 
         if (!hasChild(pCrawl, index))
             return FALSE;
@@ -76,8 +75,7 @@ void suggestPartialMatch(TrieNode *root, char* key){
     
     for (register int i =0; i< ALPHABET_SIZE; i++){
         if (hasChild(root, i)){
-            char * search = key;
-            search = append(key, i+'a');
+            char * search = append(key, i+'a');
             suggestPartialMatch(root->children[i], search);
             free(search);
             search = NULL;
@@ -112,7 +110,6 @@ int suggest(TrieNode * root, char* query){
 void removeTrie(TrieNode* root){
     removeNode(root);
     free(root);
-    root = NULL;
 }
 
 void removeNode(TrieNode * node){

@@ -30,21 +30,21 @@ int main(){
 
 void insertTrie(TrieNode * trie){
     char * word = malloc(26 * sizeof(char));
-    scanf(" %[^\n]s", word);
+    scanf(" %100[^\n]s", word);
     insert(trie, word);
     removeWord(word);
 }
 
 void searchTrie(TrieNode * trie){
 	char * word = malloc(26 * sizeof(char));
-	scanf(" %[^\n]s", word);
+	scanf(" %100[^\n]s", word);
 	printf("%s %s\n",search(trie,word)? "Found": "Not Found", word);
 	removeWord(word);
 }
 
 void suggestTrie(TrieNode * trie){
 	char * word = malloc(26 * sizeof(char));
-	scanf(" %[^\n]s", word);
+	scanf(" %100[^\n]s", word);
 	switch (suggest(trie, word)) {
 		case NO_MATCH:
 			printf("Not found any word with prefix \"%s\"\n", word);
@@ -66,5 +66,4 @@ void suggestTrie(TrieNode * trie){
 
 void removeWord(char * word){
     free(word);
-    word = NULL;
 }
