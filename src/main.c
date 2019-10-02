@@ -13,6 +13,9 @@ int main(){
 			case SUGGEST:
                 suggestTrie(root);
 				break;
+            case REMOVE:
+                removeWordTrie(root);
+                break;
       case HELP:
         printf("----------------Tips-Trie Help------------------------\n");
         printf("%c word                - insert word in trie     \n", INSERT);
@@ -39,6 +42,13 @@ void searchTrie(TrieNode * trie){
 	char * word = malloc(26 * sizeof(char));
 	scanf(" %100[^\n]s", word);
 	printf("%s %s\n",search(trie,word)? "Found": "Not Found", word);
+	removeWord(word);
+}
+
+void removeWordTrie(TrieNode * trie){
+	char * word = malloc(26 * sizeof(char));
+	scanf(" %100[^\n]s", word);
+	trie = clear(trie,word,0);
 	removeWord(word);
 }
 

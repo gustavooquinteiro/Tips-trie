@@ -22,12 +22,10 @@ TrieNode *getNode(){
 void insert(TrieNode *root, const char *key){
     register int level;
     int length = strlen(key);
-    int index;
-
     TrieNode *pCrawl = root;
 
     for (level = 0; level < length; level++){
-        index = CHAR_TO_INDEX(key[level]);
+        int index = CHAR_TO_INDEX(key[level]);
         if (!hasChild(pCrawl, index))
             pCrawl->children[index] = getNode();
 
@@ -105,6 +103,24 @@ int suggest(TrieNode * root, char* query){
         return PARTIAL_MATCH;
     }
 
+}
+
+TrieNode * clear(TrieNode * root, char * word, unsigned int depth){
+    if (!root)
+        return NULL;
+    if(depth == strlen(word)){
+        if(isEndOfWord(root))
+            root->isEndOfWord = FALSE;
+        if(isLastNode(root))
+            removeNode(root);
+        return root;
+    }
+    
+    int index = CHAR_TO_INDEX(word[depth]);
+    root->children[index] = clear(root->children[index], word, depth + 1);
+    if (isLastNode(root) && !isEndOfWord(root))
+        removeNode(root);
+    return root;   
 }
 
 void removeTrie(TrieNode* root){
